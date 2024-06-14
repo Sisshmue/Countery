@@ -22,11 +22,22 @@ class _SettingState extends State<Setting> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Set Count",
-              style: TextStyle(
-                fontSize: 30,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Set Count",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _showBottomSheet(context);
+                  },
+                  icon: Icon(Icons.info_outline),
+                )
+              ],
             ),
             SizedBox(
               height: 10,
@@ -94,6 +105,29 @@ class _SettingState extends State<Setting> {
         ),
       ),
     );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+              child: Container(
+            height: 100,
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                      "You can set the specific amount of counts you want which will limi the counts and stops increasing."),
+                ],
+              ),
+            ),
+          ));
+        });
   }
 }
 

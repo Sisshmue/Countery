@@ -49,7 +49,7 @@ class _ScreenState extends State<Screen> {
                   child: Text(
                     "${counterProvider.count3} ${counterProvider.count2} ${counterProvider.count1} ${counterProvider.count}",
                     style: TextStyle(
-                      color: Colors.white,
+                      //color: Colors.white,
                       fontSize: 70,
                     ),
                   ),
@@ -131,8 +131,10 @@ class Button extends StatelessWidget {
         width: 100,
         height: 100,
         child: FloatingActionButton(
+          elevation: 10,
           heroTag: heroTag, // Use the unique heroTag here
           backgroundColor: Color(0xFF212121),
+
           onPressed: count,
           child: Icon(
             icon,

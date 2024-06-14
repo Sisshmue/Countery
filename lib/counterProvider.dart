@@ -90,4 +90,10 @@ class CounterProvider extends ChangeNotifier {
     count3 = 0;
     notifyListeners();
   }
+
+  bool isSwitch = true;
+  void setSetSwitch(bool value) {
+    isSwitch = value;
+    notifyListeners();
+  }
 }

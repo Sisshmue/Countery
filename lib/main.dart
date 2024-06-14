@@ -1,8 +1,14 @@
+import 'package:counter_app/counterProvider.dart';
+import 'package:counter_app/setting.dart';
 import 'package:flutter/material.dart';
 import 'screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const Counter());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (_) => CounterProvider())],
+    child: Counter(),
+  ));
 }
 
 class Counter extends StatelessWidget {
@@ -16,7 +22,11 @@ class Counter extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: const Screen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Screen(),
+        '/setting': (context) => Setting(),
+      },
     );
   }
 }

@@ -1,4 +1,7 @@
+import 'package:provider/provider.dart';
+import 'counterProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -87,12 +90,20 @@ class _ScreenState extends State<Screen> {
 
   @override
   Widget build(BuildContext context) {
+    var counterProvider = Provider.of<CounterProvider>(context);
+    int countingCount =
+        count + (count1 * 10) + (count2 * 100) + (count3 * 1000);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF212121),
-        child: Icon(Icons.settings),
-        onPressed: () {},
-      ),
+          heroTag: 'settings-fab',
+          backgroundColor: Color(0xFF212121),
+          child: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/setting');
+          }),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -147,7 +158,14 @@ class _ScreenState extends State<Screen> {
                     width: 50,
                   ),
                   Button(
-                    count: increaseCount,
+                    count: () {
+                      if (countingCount < counterProvider.setCount ||
+                          counterProvider.setCount == 0) {
+                        increaseCount();
+                      } else {
+                        Vibration.vibrate();
+                      }
+                    },
                     icon: Icons.add,
                   ),
                 ],
@@ -186,6 +204,7 @@ class Button extends StatelessWidget {
           child: Icon(
             icon,
             size: 40,
+            color: Colors.white,
           ),
         ),
       ),

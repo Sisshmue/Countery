@@ -95,7 +95,7 @@ class _ScreenState extends State<Screen> {
         count + (count1 * 10) + (count2 * 100) + (count3 * 1000);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          heroTag: 'settings-fab',
+          heroTag: 'fab1',
           backgroundColor: Color(0xFF212121),
           child: Icon(
             Icons.settings,
@@ -167,6 +167,7 @@ class _ScreenState extends State<Screen> {
                       }
                     },
                     icon: Icons.add,
+                    heroTag: 'fab_add', // Unique heroTag
                   ),
                 ],
               ),
@@ -175,6 +176,7 @@ class _ScreenState extends State<Screen> {
                 child: Button(
                   count: decreaseCount,
                   icon: Icons.remove,
+                  heroTag: 'fab_remove', // Unique heroTag
                 ),
               ),
             ],
@@ -188,7 +190,8 @@ class _ScreenState extends State<Screen> {
 class Button extends StatelessWidget {
   late final void Function() count;
   late final IconData icon;
-  Button({required this.count, required this.icon});
+  final String heroTag;
+  Button({required this.count, required this.icon, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +202,7 @@ class Button extends StatelessWidget {
         width: 100,
         height: 100,
         child: FloatingActionButton(
+          heroTag: heroTag, // Use the unique heroTag here
           backgroundColor: Color(0xFF212121),
           onPressed: count,
           child: Icon(

@@ -11,12 +11,6 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-  // int setcount = 0;
-  //
-  // void setValue(value) {
-  //   setcount = value;
-  //   print(setcount);
-  // }
   @override
   Widget build(BuildContext context) {
     var counterProvider = Provider.of<CounterProvider>(context);
@@ -80,54 +74,53 @@ class _SettingState extends State<Setting> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Color(0xFF380E0E),
-                    ),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
+                Buttons(
+                  text: 'Set',
+                  function: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
-                    'Set',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
                 ),
                 SizedBox(
                   width: 20,
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                      Color(0xFF380E0E),
-                    ),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    counterProvider.setSetCount(0);
-                  },
-                  child: Text(
-                    'Reset',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                Buttons(
+                    text: 'Reseet',
+                    function: () {
+                      counterProvider.setSetCount(0);
+                    })
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class Buttons extends StatelessWidget {
+  final String text;
+  final void Function() function;
+
+  Buttons({required this.text, required this.function});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(
+          Color(0xFF380E0E),
+        ),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+      ),
+      onPressed: function,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
         ),
       ),
     );

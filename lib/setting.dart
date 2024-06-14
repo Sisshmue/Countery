@@ -2,6 +2,7 @@ import 'package:counter_app/constants.dart';
 import 'package:counter_app/counterProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +37,12 @@ class _SettingState extends State<Setting> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 150, bottom: 250),
+              padding: const EdgeInsets.only(
+                top: 150,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -166,36 +169,6 @@ class _SettingState extends State<Setting> {
                       )
                     ],
                   ),
-
-                  // Expanded(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(top: 350),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.end,
-                  //       children: [
-                  //         Switch(
-                  //             thumbIcon: MaterialStatePropertyAll(
-                  //               Icon(
-                  //                 Icons.mode_night_sharp,
-                  //                 color: counterProvider.isSwitch == false
-                  //                     ? k_lightSwitch
-                  //                     : k_darkSwitch,
-                  //               ),
-                  //             ),
-                  //             trackOutlineColor:
-                  //                 MaterialStatePropertyAll(Colors.black12),
-                  //             activeColor: Colors.white,
-                  //             activeTrackColor: Colors.green,
-                  //             inactiveTrackColor: Colors.black,
-                  //             inactiveThumbColor: Color(0xFFEAEF9D),
-                  //             value: counterProvider.isSwitch,
-                  //             onChanged: (value) {
-                  //               counterProvider.setSetSwitch(value);
-                  //             })
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

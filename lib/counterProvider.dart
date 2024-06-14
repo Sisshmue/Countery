@@ -22,4 +22,72 @@ class CounterProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  int count = 0;
+  int count1 = 0;
+  int count2 = 0;
+  int count3 = 0;
+
+  void increaseCount() {
+    if (count < 9) {
+      count++;
+      notifyListeners();
+    } else if (count1 < 9) {
+      count = 0;
+      count1++;
+      notifyListeners();
+    } else if (count2 < 9) {
+      count = 0;
+      count1 = 0;
+      count2++;
+      notifyListeners();
+    } else if (count3 < 9) {
+      count = 0;
+      count1 = 0;
+      count2 = 0;
+      count3++;
+      notifyListeners();
+    }
+  }
+
+  void decreaseCount() {
+    if (count == 0 && count1 == 0 && count2 == 0 && count3 == 0) {
+      count = count1 = count2 = 0;
+    } else if (count == 0) {
+      if (count1 == 0) {
+        if (count2 == 0) {
+          if (count3 > 0) {
+            count3 = count3 - 1;
+            count2 = 9;
+            count1 = 9;
+            count = 10;
+            count--;
+            notifyListeners();
+          }
+        } else if (count2 > 0) {
+          count2 = count2 - 1;
+          count1 = 9;
+          count = 10;
+          count--;
+          notifyListeners();
+        }
+      } else if (count1 > 0) {
+        count1 = count1 - 1;
+        count = 10;
+        count--;
+        notifyListeners();
+      }
+    } else {
+      count--;
+      notifyListeners();
+    }
+  }
+
+  void reset() {
+    count = 0;
+    count1 = 0;
+    count2 = 0;
+    count3 = 0;
+    notifyListeners();
+  }
 }

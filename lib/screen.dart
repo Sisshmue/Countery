@@ -11,88 +11,13 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-  int count = 0;
-  int count1 = 0;
-  int count2 = 0;
-  int count3 = 0;
-
-  void increaseCount() {
-    if (count < 9) {
-      setState(() {
-        count++;
-      });
-    } else if (count1 < 9) {
-      setState(() {
-        count = 0;
-        count1++;
-      });
-    } else if (count2 < 9) {
-      setState(() {
-        count = 0;
-        count1 = 0;
-        count2++;
-      });
-    } else if (count3 < 9) {
-      setState(() {
-        count = 0;
-        count1 = 0;
-        count2 = 0;
-        count3++;
-      });
-    }
-  }
-
-  void decreaseCount() {
-    if (count == 0 && count1 == 0 && count2 == 0 && count3 == 0) {
-      count = count1 = count2 = 0;
-    } else if (count == 0) {
-      if (count1 == 0) {
-        if (count2 == 0) {
-          if (count3 > 0) {
-            setState(() {
-              count3 = count3 - 1;
-              count2 = 9;
-              count1 = 9;
-              count = 10;
-              count--;
-            });
-          }
-        } else if (count2 > 0) {
-          setState(() {
-            count2 = count2 - 1;
-            count1 = 9;
-            count = 10;
-            count--;
-          });
-        }
-      } else if (count1 > 0) {
-        setState(() {
-          count1 = count1 - 1;
-          count = 10;
-          count--;
-        });
-      }
-    } else {
-      setState(() {
-        count--;
-      });
-    }
-  }
-
-  void reset() {
-    setState(() {
-      count = 0;
-      count1 = 0;
-      count2 = 0;
-      count3 = 0;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var counterProvider = Provider.of<CounterProvider>(context);
-    int countingCount =
-        count + (count1 * 10) + (count2 * 100) + (count3 * 1000);
+    int countingCount = (counterProvider.count +
+        (counterProvider.count1 * 10) +
+        (counterProvider.count2 * 100) +
+        (counterProvider.count3 * 1000)) as int;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           heroTag: 'fab1',
@@ -122,7 +47,7 @@ class _ScreenState extends State<Screen> {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    "$count3 $count2 $count1 $count",
+                    "${counterProvider.count3} ${counterProvider.count2} ${counterProvider.count1} ${counterProvider.count}",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 70,
@@ -147,7 +72,9 @@ class _ScreenState extends State<Screen> {
                           ),
                         ),
                       ),
-                      onPressed: reset,
+                      onPressed: () {
+                        counterProvider.reset();
+                      },
                       child: Text(
                         'Reset',
                         style: TextStyle(color: Colors.white),
@@ -161,7 +88,7 @@ class _ScreenState extends State<Screen> {
                     count: () {
                       if (countingCount < counterProvider.setCount ||
                           counterProvider.setCount == 0) {
-                        increaseCount();
+                        counterProvider.increaseCount();
                       } else {
                         Vibration.vibrate();
                       }
@@ -174,7 +101,9 @@ class _ScreenState extends State<Screen> {
               Padding(
                 padding: const EdgeInsets.only(right: 100),
                 child: Button(
-                  count: decreaseCount,
+                  count: () {
+                    counterProvider.decreaseCount();
+                  },
                   icon: Icons.remove,
                   heroTag: 'fab_remove', // Unique heroTag
                 ),
